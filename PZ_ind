@@ -1,0 +1,37 @@
+section .text
+    global _start
+
+_start:
+    mov ebx, [a]
+    
+    mov ecx, [b] 
+    
+    mov eax, ebx
+    mul ecx
+    mul [dvoika]
+    cmp ebx, ecx
+    jl if
+    jmp else
+if:
+    mov ebx, eax
+    ret
+else:
+    mov ecx, eax
+    ret
+    
+    mov  edx, ebx
+    mov  edx, 1
+    mov  ebx, 1
+    mov  eax, 4
+    int 0x80
+
+    mov  edx, ecx
+    mov  edx, 1
+    mov  ebx, 1
+    mov  eax, 4
+    int 0x80
+
+section .data
+a db 3
+b db 4
+dvoika db 2
