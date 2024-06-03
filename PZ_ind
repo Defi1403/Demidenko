@@ -1,37 +1,41 @@
+section .data
+    a db 3
+    b db 4
+
 section .text
     global _start
 
 _start:
-    mov ebx, [a]
-    
-    mov ecx, [b] 
-    
-    mov eax, ebx
-    mul ecx
-    mul [dvoika]
-    cmp ebx, ecx
+    mov esi, [a]
+    mov edi, [b]
+
+    mov eax, esi
+    mul edi
+    add eax, eax
+    cmp esi, edi
     jl if
     jmp else
+
 if:
-    mov ebx, eax
-    ret
+    mov esi, eax
+    jmp print_result
+
 else:
-    mov ecx, eax
-    ret
-    
-    mov  edx, ebx
-    mov  edx, 1
-    mov  ebx, 1
-    mov  eax, 4
+    mov edi, eax
+    jmp print_result
+
+print_result:
+    mov ecx, esi
+    mov ebx, 1
+    mov edx, esi
+    mov eax, 4
     int 0x80
 
-    mov  edx, ecx
-    mov  edx, 1
-    mov  ebx, 1
-    mov  eax, 4
+    mov ecx, edi
+    mov ebx, 1
+    mov edx, edi
+    mov eax, 4
     int 0x80
 
-section .data
-a db 3
-b db 4
-dvoika db 2
+    mov eax, 1
+    int 0x80
